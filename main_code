@@ -1,0 +1,38 @@
+import string
+text = input("Please enter the text to encrypt: ")
+ascii_values = []
+flag = True 
+
+while flag:
+    shift = input("Please enter as a number a shift value between 1 and 25: ")
+    if not (shift.isdigit() or int(shift) not in range(25)):
+        print("The input is not valid! Please enter a valid integer value between 1 and 25: ")
+        continue
+    else:
+        flag = False
+        shift = int(shift)
+    
+
+for char in text:
+    '''
+        check to see if the char is a letter in ascii and code it according to the next 
+        
+    '''
+    if char in string.ascii_letters:
+        #assign
+        code = ord(char)+ shift
+        if char.isupper():
+            if code > ord('Z'):
+                temp_shift = code-ord('Z')
+                code = ord('A')+temp_shift-1
+        if char.islower():
+            if code > ord('z'):
+                temp_shift = code-ord('z')
+                code = ord('a')+temp_shift-1
+        ascii_values.append(code)
+    else:
+        ascii_values.append(ord(char))
+
+cipher = [chr(ascii) for ascii in ascii_values]
+print("".join(cipher))
+        
